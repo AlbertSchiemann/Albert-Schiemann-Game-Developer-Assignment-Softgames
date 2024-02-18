@@ -1,4 +1,50 @@
 "use strict";
+class FPSCounter {
+    constructor() {
+        this.lastFrameTime = 0;
+        this.frameRequest = 0;
+        this.fpsCounterElement = document.getElementById('fpsCounter');
+    }
+    start() {
+        this.frameRequest = requestAnimationFrame(this.update.bind(this));
+    }
+    stop() {
+        cancelAnimationFrame(this.frameRequest);
+    }
+    update() {
+        const now = performance.now();
+        const deltaTime = now - this.lastFrameTime;
+        if (deltaTime > 0) {
+            const fps = Math.round(1000 / deltaTime);
+            this.fpsCounterElement.textContent = `FPS: ${fps}`;
+        }
+        this.lastFrameTime = now;
+        this.frameRequest = requestAnimationFrame(this.update.bind(this));
+    }
+}
+class FPSCounter1 {
+    constructor() {
+        this.lastFrameTime = 0;
+        this.frameRequest = 0;
+        this.fpsCounterElement = document.getElementById('fpsCounter');
+    }
+    start() {
+        this.frameRequest = requestAnimationFrame(this.update.bind(this));
+    }
+    stop() {
+        cancelAnimationFrame(this.frameRequest);
+    }
+    update() {
+        const now = performance.now();
+        const deltaTime = now - this.lastFrameTime;
+        if (deltaTime > 0) {
+            const fps = Math.round(1000 / deltaTime);
+            this.fpsCounterElement.textContent = `FPS: ${fps}`;
+        }
+        this.lastFrameTime = now;
+        this.frameRequest = requestAnimationFrame(this.update.bind(this));
+    }
+}
 class Deck {
     constructor(containerId, newContainerId) {
         this.stack = [];
@@ -39,6 +85,8 @@ window.onload = () => {
     const cardsBtn = document.getElementById('cardsBtn');
     const textBtn = document.getElementById('textBtn');
     const particlesBtn = document.getElementById('particlesBtn');
+    const fpsCounter = new FPSCounter();
+    fpsCounter.start();
     const deck = new Deck('deckContainer', 'newStack');
     // Hide card containers and show the start menu
     function showStartMenu() {

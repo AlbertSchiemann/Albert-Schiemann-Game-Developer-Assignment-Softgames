@@ -1,3 +1,62 @@
+class FPSCounter {
+  private lastFrameTime: number = 0;
+  private frameRequest: number = 0;
+  private fpsCounterElement: HTMLElement;
+
+  constructor() {
+      this.fpsCounterElement = document.getElementById('fpsCounter')!;
+  }
+
+  start(): void {
+      this.frameRequest = requestAnimationFrame(this.update.bind(this));
+  }
+
+  stop(): void {
+      cancelAnimationFrame(this.frameRequest);
+  }
+
+  private update(): void {
+      const now = performance.now();
+      const deltaTime = now - this.lastFrameTime;
+      if (deltaTime > 0) {
+          const fps = Math.round(1000 / deltaTime);
+          this.fpsCounterElement.textContent = `FPS: ${fps}`;
+      }
+      this.lastFrameTime = now;
+      this.frameRequest = requestAnimationFrame(this.update.bind(this));
+  }
+}
+
+class FPSCounter1 {
+  private lastFrameTime: number = 0;
+  private frameRequest: number = 0;
+  private fpsCounterElement: HTMLElement;
+
+  constructor() {
+      this.fpsCounterElement = document.getElementById('fpsCounter')!;
+  }
+
+  start(): void {
+      this.frameRequest = requestAnimationFrame(this.update.bind(this));
+  }
+
+  stop(): void {
+      cancelAnimationFrame(this.frameRequest);
+  }
+
+  private update(): void {
+      const now = performance.now();
+      const deltaTime = now - this.lastFrameTime;
+      if (deltaTime > 0) {
+          const fps = Math.round(1000 / deltaTime);
+          this.fpsCounterElement.textContent = `FPS: ${fps}`;
+      }
+      this.lastFrameTime = now;
+      this.frameRequest = requestAnimationFrame(this.update.bind(this));
+  }
+}
+
+
 type Sprite = {
   element: HTMLDivElement;
   position: number;
@@ -49,6 +108,9 @@ window.onload = () => {
   const cardsBtn = document.getElementById('cardsBtn')!;
   const textBtn = document.getElementById('textBtn')!;
   const particlesBtn = document.getElementById('particlesBtn')!;
+
+  const fpsCounter = new FPSCounter();
+  fpsCounter.start();
 
   const deck = new Deck('deckContainer', 'newStack');
 

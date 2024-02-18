@@ -1,13 +1,37 @@
 
-/* Styles for the sprites */
-.sprite {
-	width: 50px;
-	height: 70px;
-	position: absolute;
-	background-color: #f0f0f0;
-	border: 1px solid #ddd;
-  }
-  
+body, html {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f0f0f0;
+}
+
+.stack {
+    position: relative;
+    width: 100px; /* Adjust based on your card width */
+    height: 140px; /* Adjust based on your card height */
+    margin: 0 10px; /* Adds space between the stacks */
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.card {
+    position: absolute;
+    width: 90px; /* Adjust based on your need */
+    height: 130px; /* Adjust based on your need */
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    will-change: transform, opacity;
+}
+
+
+#newStack {
+    margin-left: 20px;
+}
+
 
 
 

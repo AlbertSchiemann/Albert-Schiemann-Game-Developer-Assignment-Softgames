@@ -32,6 +32,17 @@ body, html {
     margin-left: 20px;
 }
 
+#startMenu button {
+    margin: 10px;
+    padding: 10px;
+}
+
+#backBtn {
+    margin: 10px;
+    padding: 10px;
+    position: absolute;
+    top: 0;
+}
 
 
 

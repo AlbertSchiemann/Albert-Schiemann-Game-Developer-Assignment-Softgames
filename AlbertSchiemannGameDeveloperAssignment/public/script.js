@@ -32,7 +32,40 @@ class Deck {
     }
 }
 window.onload = () => {
+    const startMenu = document.getElementById('startMenu');
+    const deckContainer = document.getElementById('deckContainer');
+    const newStackContainer = document.getElementById('newStack');
+    const backBtn = document.getElementById('backBtn');
+    const cardsBtn = document.getElementById('cardsBtn');
+    const textBtn = document.getElementById('textBtn');
+    const particlesBtn = document.getElementById('particlesBtn');
     const deck = new Deck('deckContainer', 'newStack');
-    deck.createSprites(144);
-    deck.animateMovement();
+    // Hide card containers and show the start menu
+    function showStartMenu() {
+        startMenu.style.display = 'block';
+        deckContainer.style.display = 'none';
+        newStackContainer.style.display = 'none';
+        backBtn.style.display = 'none';
+    }
+    // Show card stacking feature and hide the start menu
+    function showCards() {
+        startMenu.style.display = 'none';
+        deckContainer.style.display = 'block';
+        newStackContainer.style.display = 'block';
+        backBtn.style.display = 'block';
+        deck.createSprites(144); // Consider preventing multiple initializations
+        deck.animateMovement();
+    }
+    // Placeholder functions for "Text" and "Particles" buttons
+    function showText() {
+        console.log("Text feature coming soon.");
+    }
+    function showParticles() {
+        console.log("Particles feature coming soon.");
+    }
+    cardsBtn.addEventListener('click', showCards);
+    textBtn.addEventListener('click', showText);
+    particlesBtn.addEventListener('click', showParticles);
+    backBtn.addEventListener('click', showStartMenu);
+    showStartMenu(); // Initially show the start menu
 };

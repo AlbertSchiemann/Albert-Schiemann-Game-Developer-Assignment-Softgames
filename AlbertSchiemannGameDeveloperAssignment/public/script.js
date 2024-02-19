@@ -1,4 +1,5 @@
 "use strict";
+//simple fps counter
 class FPSCounter {
     constructor() {
         this.lastFrameTime = 0;
@@ -43,33 +44,47 @@ class Deck {
         setInterval(() => {
             if (this.stack.length > 0) {
                 const sprite = this.stack.shift();
-                sprite.element.style.transition = 'all 2s';
+                sprite.element.style.transition = 'all 2s'; //Make the transition be every two seconds
                 sprite.element.style.transform = `translateX(${this.newStackContainer.offsetLeft - this.container.offsetLeft}px)`;
                 setTimeout(() => {
                     this.newStackContainer.appendChild(sprite.element); // Move to the new stack
                     sprite.element.style.transform = 'translateX(0)';
                     this.newStack.push(sprite);
-                }, 2000); // Wait for the animation to complete
+                }, 2000);
             }
         }, 1000);
     }
 }
+//dynamic text class
 class DynamicContentDisplay {
     constructor(containerId) {
         this.contentContainer = document.getElementById(containerId);
+        this.texts = ["Price 1", "Price 2", "Price 3", "Price 4", "Price 5"];
+        this.imageFilenames = ['image1.png', 'image2.png', 'image3.png'];
+        this.basePath = './content/';
     }
     updateContent() {
-        // Example of random content generation
-        const texts = ["Price 1", "Price 2", "Price 3", "Price 4", "Price 5"];
-        const randomText = texts[Math.floor(Math.random() * texts.length)];
-        const randomFontSize = Math.floor(Math.random() * 20) + 14; // Random font size between 14px and 34px
-        this.contentContainer.innerHTML = `<span style="font-size: ${randomFontSize}px;">${randomText}</span>`;
+        const randomText = this.texts[this.getRandomInt(this.texts.length)];
+        const randomImageFilename = this.imageFilenames[this.getRandomInt(this.imageFilenames.length)];
+        const randomFontSize = this.getRandomInt(21) + 14; // Random font size between 14px and 34px
+        const imageUrl = `${this.basePath}${randomImageFilename}`;
+        // Combine text and image with a random font size
+        // The images folder seems to not be found
+        this.contentContainer.innerHTML = `
+    <div style="text-align: center;">
+      <img src="${imageUrl}" alt="" style="max-width:100%; max-height:50px; display: block; margin: 0 auto;">
+      <span style="font-size: ${randomFontSize}px; display: block; margin-top: 10px;">${randomText}</span>
+    </div>`;
+    }
+    getRandomInt(max) {
+        return Math.floor(Math.random() * max);
     }
     startUpdating() {
         this.updateContent(); // Initial update
         setInterval(() => this.updateContent(), 2000); // Update every 2 seconds
     }
 }
+//fire effect class
 class FireEffect {
     constructor(containerId) {
         this.container = document.getElementById(containerId);
@@ -104,12 +119,15 @@ window.onload = () => {
     const fpsCounter = new FPSCounter();
     fpsCounter.start();
     const deck = new Deck('deckContainer', 'newStack');
-    // Hide card containers and show the start menu
+    // Hide everything and show the start menu
     function showStartMenu() {
         startMenu.style.display = 'block';
+        //Hide the card stack
         deckContainer.style.display = 'none';
         newStackContainer.style.display = 'none';
+        //Hide the back button
         backBtn.style.display = 'none';
+        //Hide the text block
         const dynamicContentContainer = document.getElementById('dynamicContent');
         if (dynamicContentContainer) {
             dynamicContentContainer.style.display = 'none';
@@ -133,8 +151,6 @@ window.onload = () => {
     }
     function showText() {
         startMenu.style.display = 'none'; // Hide the start menu
-        deckContainer.style.display = 'none'; // Hide the deck container if visible
-        newStackContainer.style.display = 'none'; // Hide the new stack container if visible
         backBtn.style.display = 'block'; // Show the back button
         // Initialize and start the dynamic content display
         const dynamicContent = new DynamicContentDisplay('dynamicContent');
@@ -145,13 +161,12 @@ window.onload = () => {
     }
     function showFire() {
         startMenu.style.display = 'none'; // Hide the start menu
-        deckContainer.style.display = 'none'; // Hide the deck container if visible
-        newStackContainer.style.display = 'none'; // Hide the new stack container if visible
         backBtn.style.display = 'block'; // Show the back button
         const fireContainer = document.getElementById('fireContainer');
         const fireEffect = new FireEffect('fireContainer');
         fireEffect.start();
     }
+    //button logic
     cardsBtn.addEventListener('click', showCards);
     textBtn.addEventListener('click', showText);
     backBtn.addEventListener('click', showStartMenu);

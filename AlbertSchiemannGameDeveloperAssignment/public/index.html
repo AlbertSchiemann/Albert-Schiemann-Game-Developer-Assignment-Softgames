@@ -5,16 +5,23 @@
     <link rel="stylesheet" href="styles.css"> <!-- Link to your CSS file -->
 </head>
 <body>
-    
+
 <div id="fpsCounter" style="position: absolute; top: 0; left: 0; color: white; background: black; padding: 5px;"></div>
+
+<div id="dynamicContent" class="dynamic-content"></div>
 
     <div id="startMenu">
         <button id="cardsBtn">Cards</button>
         <button id="textBtn">Text</button>
         <button id="particlesBtn">Particles</button>
     </div>
+
     <div id="deckContainer" class="stack"></div>
     <div id="newStack" class="stack"></div>
+
+    <div id="fireContainer" class="stack" style="display:none;"></div>
+
+
     <button id="backBtn" style="display:none;">Back</button>
     <script src="script.js"></script>
 </body>

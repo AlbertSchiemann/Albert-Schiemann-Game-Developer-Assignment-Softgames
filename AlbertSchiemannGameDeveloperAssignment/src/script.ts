@@ -27,35 +27,6 @@ class FPSCounter {
   }
 }
 
-class FPSCounter1 {
-  private lastFrameTime: number = 0;
-  private frameRequest: number = 0;
-  private fpsCounterElement: HTMLElement;
-
-  constructor() {
-      this.fpsCounterElement = document.getElementById('fpsCounter')!;
-  }
-
-  start(): void {
-      this.frameRequest = requestAnimationFrame(this.update.bind(this));
-  }
-
-  stop(): void {
-      cancelAnimationFrame(this.frameRequest);
-  }
-
-  private update(): void {
-      const now = performance.now();
-      const deltaTime = now - this.lastFrameTime;
-      if (deltaTime > 0) {
-          const fps = Math.round(1000 / deltaTime);
-          this.fpsCounterElement.textContent = `FPS: ${fps}`;
-      }
-      this.lastFrameTime = now;
-      this.frameRequest = requestAnimationFrame(this.update.bind(this));
-  }
-}
-
 
 type Sprite = {
   element: HTMLDivElement;
@@ -100,6 +71,61 @@ class Deck {
   }
 }
 
+class DynamicContentDisplay {
+  contentContainer: HTMLElement;
+
+  constructor(containerId: string) {
+      this.contentContainer = document.getElementById(containerId)!;
+  }
+
+  updateContent(): void {
+      // Example of random content generation
+      const texts = ["Hello 😊", "Sale! 💰", "New Arrival 🆕", "Limited Offer ⏰"];
+      const randomText = texts[Math.floor(Math.random() * texts.length)];
+      const randomFontSize = Math.floor(Math.random() * 20) + 14; // Random font size between 14px and 34px
+
+      this.contentContainer.innerHTML = `<span style="font-size: ${randomFontSize}px;">${randomText}</span>`;
+  }
+
+  startUpdating(): void {
+      this.updateContent(); // Initial update
+      setInterval(() => this.updateContent(), 2000); // Update every 2 seconds
+  }
+   
+}
+
+class FireEffect {
+  container: HTMLElement;
+
+  constructor(containerId: string) {
+      this.container = document.getElementById(containerId)!;
+      this.container.style.display = 'block';
+  }
+
+  createParticle(): void {
+      const particle = document.createElement('div');
+      particle.className = 'fireParticle';
+      particle.style.left = `${Math.random() * 100}px`; // Randomize starting position
+      this.container.appendChild(particle);
+
+      // Remove particle after animation ends
+      setTimeout(() => {
+          particle.remove();
+      }, 2000);
+  }
+
+  start(): void {
+      setInterval(() => {
+          if(this.container.childElementCount < 10) { // Keep the number of particles under 10
+              this.createParticle();
+          }
+      }, 200);
+  }
+}
+
+
+
+
 window.onload = () => {
   const startMenu = document.getElementById('startMenu')!;
   const deckContainer = document.getElementById('deckContainer')!;
@@ -132,19 +158,42 @@ window.onload = () => {
       deck.animateMovement();
   }
 
-  // Placeholder functions for "Text" and "Particles" buttons
+
   function showText() {
-      console.log("Text feature coming soon.");
-  }
+    startMenu.style.display = 'none'; // Hide the start menu
+    deckContainer.style.display = 'none'; // Hide the deck container if visible
+    newStackContainer.style.display = 'none'; // Hide the new stack container if visible
+    backBtn.style.display = 'block'; // Show the back button
+
+    // Initialize and start the dynamic content display
+    const dynamicContent = new DynamicContentDisplay('dynamicContent');
+    dynamicContent.startUpdating();
+
+    // Make sure the dynamic content container is visible
+    const dynamicContentContainer = document.getElementById('dynamicContent')!;
+    dynamicContentContainer.style.display = 'block'; // Adjust as necessary based on your CSS  
+    }
 
   function showParticles() {
-      console.log("Particles feature coming soon.");
+
+    startMenu.style.display = 'none'; // Hide the start menu
+    deckContainer.style.display = 'none'; // Hide the deck container if visible
+    newStackContainer.style.display = 'none'; // Hide the new stack container if visible
+    backBtn.style.display = 'block'; // Show the back button
+      
   }
+
+  function showFire() {
+    const fireContainer = document.getElementById('fireContainer')!;
+    const fireEffect = new FireEffect('fireContainer');
+    fireEffect.start();
+    }
 
   cardsBtn.addEventListener('click', showCards);
   textBtn.addEventListener('click', showText);
-  particlesBtn.addEventListener('click', showParticles);
+  //particlesBtn.addEventListener('click', showParticles);
   backBtn.addEventListener('click', showStartMenu);
+  particlesBtn.addEventListener('click', showFire);
 
   showStartMenu(); // Initially show the start menu
 };

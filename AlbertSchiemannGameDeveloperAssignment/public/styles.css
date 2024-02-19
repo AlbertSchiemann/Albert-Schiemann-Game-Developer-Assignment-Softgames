@@ -44,6 +44,25 @@ body, html {
     top: 0;
 }
 
+.fireParticle {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,175,0,1) 0%, rgba(255,0,0,1) 100%);
+    animation: moveUpwards 2s infinite;
+}
+
+@keyframes moveUpwards {
+    0% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-100px) scale(0);
+        opacity: 0;
+    }
+}
 
 
 

@@ -27,7 +27,6 @@ class FPSCounter {
   }
 }
 
-
 type Sprite = {
   element: HTMLDivElement;
   position: number;
@@ -80,7 +79,7 @@ class DynamicContentDisplay {
 
   updateContent(): void {
       // Example of random content generation
-      const texts = ["Hello 😊", "Sale! 💰", "New Arrival 🆕", "Limited Offer ⏰"];
+      const texts = ["Price 1","Price 2", "Price 3", "Price 4", "Price 5"];
       const randomText = texts[Math.floor(Math.random() * texts.length)];
       const randomFontSize = Math.floor(Math.random() * 20) + 14; // Random font size between 14px and 34px
 
@@ -122,9 +121,6 @@ class FireEffect {
       }, 200);
   }
 }
-
-
-
 
 window.onload = () => {
   const startMenu = document.getElementById('startMenu')!;
@@ -172,7 +168,6 @@ window.onload = () => {
       deck.animateMovement();
   }
 
-
   function showText() {
     startMenu.style.display = 'none'; // Hide the start menu
     deckContainer.style.display = 'none'; // Hide the deck container if visible
@@ -188,15 +183,6 @@ window.onload = () => {
     dynamicContentContainer.style.display = 'block'; // Adjust as necessary based on your CSS  
     }
 
-  function showParticles() {
-
-    startMenu.style.display = 'none'; // Hide the start menu
-    deckContainer.style.display = 'none'; // Hide the deck container if visible
-    newStackContainer.style.display = 'none'; // Hide the new stack container if visible
-    backBtn.style.display = 'block'; // Show the back button
-      
-  }
-
   function showFire() {
     startMenu.style.display = 'none'; // Hide the start menu
     deckContainer.style.display = 'none'; // Hide the deck container if visible
@@ -209,7 +195,6 @@ window.onload = () => {
 
   cardsBtn.addEventListener('click', showCards);
   textBtn.addEventListener('click', showText);
-  //particlesBtn.addEventListener('click', showParticles);
   backBtn.addEventListener('click', showStartMenu);
   particlesBtn.addEventListener('click', showFire);
 

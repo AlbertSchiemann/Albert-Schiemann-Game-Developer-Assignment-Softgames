@@ -43,17 +43,13 @@ class Deck {
     animateMovement() {
         setInterval(() => {
             if (this.stack.length > 0) {
-                const sprite = this.stack.shift(); // Take the first card from the original stack
-                const newStackHeight = this.newStack.length * 2; // Calculate the new vertical position based on the number of cards in newStack
-                sprite.element.style.transition = 'all 2s'; // Animation transition for smooth movement
-                // Move horizontally to the new stack position and adjust vertical position based on newStackHeight
-                sprite.element.style.transform = `translate(${this.newStackContainer.offsetLeft - this.container.offsetLeft}px, ${newStackHeight}px)`;
+                const sprite = this.stack.shift();
+                sprite.element.style.transition = 'all 2s'; //Make the transition be every two seconds
+                sprite.element.style.transform = `translateX(${this.newStackContainer.offsetLeft - this.container.offsetLeft}px)`;
                 setTimeout(() => {
                     this.newStackContainer.appendChild(sprite.element); // Move to the new stack
-                    this.newStack.push(sprite); // Add the card to the 'newStack' array
-                    // Reset transform to adjust for the new stack's relative positioning
-                    sprite.element.style.transform = `translateY(${newStackHeight}px)`;
-                    sprite.element.style.zIndex = `${this.newStack.length}`; // Adjust zIndex so newer cards stack on top
+                    sprite.element.style.transform = 'translateX(0)';
+                    this.newStack.push(sprite);
                 }, 2000);
             }
         }, 1000);

@@ -146,6 +146,20 @@ window.onload = () => {
       deckContainer.style.display = 'none';
       newStackContainer.style.display = 'none';
       backBtn.style.display = 'none';
+
+      const dynamicContentContainer = document.getElementById('dynamicContent');
+    if (dynamicContentContainer) {
+        dynamicContentContainer.style.display = 'none';
+    }
+
+       // Hide the fire container
+    const fireContainer = document.getElementById('fireContainer')!;
+    fireContainer.style.display = 'none';
+
+    // Clear any existing particles to reset the fire effect
+    while (fireContainer.firstChild) {
+        fireContainer.removeChild(fireContainer.firstChild);
+    }
   }
 
   // Show card stacking feature and hide the start menu
@@ -184,6 +198,10 @@ window.onload = () => {
   }
 
   function showFire() {
+    startMenu.style.display = 'none'; // Hide the start menu
+    deckContainer.style.display = 'none'; // Hide the deck container if visible
+    newStackContainer.style.display = 'none'; // Hide the new stack container if visible
+    backBtn.style.display = 'block'; // Show the back button
     const fireContainer = document.getElementById('fireContainer')!;
     const fireEffect = new FireEffect('fireContainer');
     fireEffect.start();
